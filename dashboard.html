@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cybersecurity Learning Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .goal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .quick-link:hover {
+            background: #e8eeff;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .modules-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .module-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .module-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .module-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .module-lessons {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            font-size: 0.85em;
+            color: #666;
+            text-align: right;
+        }
+
+        .resources-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .resource-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .resource-desc {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .timeline {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 60px;
+            width: 2px;
+            height: 40px;
+            background: #e0e0e0;
+        }
+
+        .timeline-marker {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: #666;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .modules-grid,
+            .resource-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header,
+            .modules-section,
+            .resources-section,
+            .timeline {
+                padding: 20px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #667eea;
+        }
+
+        .module-details h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .module-details ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        .module-details li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .checkbox-list {
+            margin-top: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #f0f4ff;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-item.completed {
+            opacity: 0.6;
+        }
+
+        .checkbox-item.completed label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        label {
+            cursor: pointer;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🛡️ My Cybersecurity Learning Dashboard</h1>
+            <p class="subtitle">Your Personal Journey: IT Help Desk → SOC Analyst</p>
+            <div class="goal">
+                🎯 Goal: Become a SOC Analyst | Timeline: 12 months
+            </div>
+
+            <div class="quick-links">
+                <a href="#progress" class="quick-link">📊 View Progress</a>
+                <a href="#resources" class="quick-link">📚 Study Resources</a>
+                <a href="#timeline" class="quick-link">📅 Study Timeline</a>
+                <a href="PROGRESS.md" class="quick-link" target="_blank">📋 Full Progress Tracker</a>
+                <a href="ROADMAP.md" class="quick-link" target="_blank">🗺️ Certification Roadmap</a>
+                <a href="RESOURCES.md" class="quick-link" target="_blank">🔗 Resource Library</a>
+            </div>
+        </header>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Modules to Master</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">25</div>
+                <div class="stat-label">Total Lessons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50-65</div>
+                <div class="stat-label">Estimated Study Hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Key Certifications</div>
+            </div>
+        </div>
+
+        <!-- Modules Section -->
+        <div class="modules-section" id="progress">
+            <h2 class="section-title">📚 Your Learning Modules</h2>
+            <div class="modules-grid" id="modulesGrid"></div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section" id="resources">
+            <h2 class="section-title">🎓 Key Resources for Your Journey</h2>
+            <div class="resource-grid" id="resourcesGrid"></div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline" id="timeline">
+            <h2 class="section-title">📅 Recommended Study Timeline</h2>
+            <div id="timelineContent"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>💡 Remember: Consistency > Intensity. Study 30 minutes daily > 6 hours once per week</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Last Updated: 2026-04-23 | Your cybersecurity journey starts here! 🚀</p>
+        </footer>
+    </div>
+
+    <!-- Module Details Modal -->
+    <div id="moduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="moduleDetailsContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Module Data
+        const modules = [
+            {
+                number: 1,
+                name: "Fundamentals",
+                icon: "🔐",
+                lessons: 7,
+                topics: "CIA Triad, Threats, Risk Management, Security Controls, Zero Trust, Shared Responsibility",
+                keyPoints: [
+                    "CIA Triad (Confidentiality, Integrity, Availability)",
+                    "Common threats (phishing, malware, DDoS, SQL injection, XSS)",
+                    "Risk assessment and management",
+                    "Security controls (administrative, technical, physical)",
+                    "Zero Trust architecture basics",
+                    "Shared responsibility model for cloud"
+                ],
+                time: "8-10 hours",
+                certExams: ["Security+", "CySA+"]
+            },
+            {
+                number: 2,
+                name: "Identity & Access Management",
+                icon: "🔑",
+                lessons: 3,
+                topics: "Authentication, Authorization, IAM Concepts, Least Privilege",
+                keyPoints: [
+                    "Authentication methods (something you know/have/are)",
+                    "Authorization and access controls",
+                    "Principle of least privilege",
+                    "Segregation of duties",
+                    "Directory services (Active Directory, LDAP)",
+                    "Identity as the new perimeter"
+                ],
+                time: "6-8 hours",
+                certExams: ["Security+", "CySA+", "CISSP"]
+            },
+            {
+                number: 3,
+                name: "Network Security",
+                icon: "🌐",
+                lessons: 3,
+                topics: "IP Addressing, OSI Model, TCP/UDP, Network Segmentation, Firewalls",
+                keyPoints: [
+                    "IP addressing (IPv4, IPv6)",
+                    "OSI model and security controls",
+                    "TCP vs UDP protocols",
+                    "Port numbers and common services",
+                    "Encryption in transit and at rest",
+                    "Network segmentation and DDoS protection"
+                ],
+                time: "7-9 hours",
+                certExams: ["Security+", "CySA+", "CEH"]
+            },
+            {
+                number: 4,
+                name: "Security Operations",
+                icon: "🚨",
+                lessons: 3,
+                topics: "SIEM, XDR, Incident Response, Threat Intelligence",
+                keyPoints: [
+                    "Security Operations Center (SOC) - YOUR TARGET ROLE!",
+                    "NIST Cybersecurity Framework",
+                    "SIEM tools (Splunk, ELK, Wazuh)",
+                    "XDR (Extended Detection & Response)",
+                    "Incident response process",
+                    "Threat hunting and intelligence"
+                ],
+                time: "7-8 hours",
+                certExams: ["Security+", "CySA+", "CASP+"]
+            },
+            {
+                number: 5,
+                name: "Application Security",
+                icon: "💻",
+                lessons: 2,
+                topics: "OWASP Top 10, Secure SDLC, Testing Tools",
+                keyPoints: [
+                    "Secure by design principles",
+                    "OWASP Top 10 vulnerabilities",
+                    "Input validation and output encoding",
+                    "SAST/DAST/IAST testing methods",
+                    "Web Application Firewalls (WAF)",
+                    "Container and API security"
+                ],
+                time: "6-7 hours",
+                certExams: ["Security+", "CySA+"]
+            },
+            {
+                number: 6,
+                name: "Infrastructure Security",
+                icon: "🏗️",
+                lessons: 2,
+                topics: "Patching, Vulnerability Management, Cloud Security, Containers",
+                keyPoints: [
+                    "Security hygiene and patch management",
+                    "Vulnerability scanning and assessment",
+                    "Cloud Security Posture Management (CSPM)",
+                    "Container security (Docker, Kubernetes)",
+                    "Security baselines and hardening",
+                    "Vulnerability scoring (CVSS)"
+                ],
+                time: "6-8 hours",
+                certExams: ["Security+", "CySA+", "CASP+"]
+            },
+            {
+                number: 7,
+                name: "Data Security",
+                icon: "🔒",
+                lessons: 2,
+                topics: "Data Classification, DLP, Privacy Laws, Data Lifecycle",
+                keyPoints: [
+                    "Data classification and sensitivity levels",
+                    "Data lifecycle management",
+                    "Data Loss Prevention (DLP) tools",
+                    "Insider risk management",
+                    "Encryption at rest and in transit",
+                    "Privacy regulations (GDPR, HIPAA, CCPA)"
+                ],
+                time: "6-7 hours",
+                certExams: ["Security+", "CySA+", "CISSP"]
+            },
+            {
+                number: 8,
+                name: "AI Security",
+                icon: "🤖",
+                lessons: 3,
+                topics: "AI Threats, Data Poisoning, Adversarial Attacks, Responsible AI",
+                keyPoints: [
+                    "AI vs traditional cybersecurity differences",
+                    "Data poisoning and adversarial attacks",
+                    "Model security and evasion",
+                    "Prompt injection and manipulation",
+                    "AI red teaming",
+                    "Responsible AI and ethics"
+                ],
+                time: "6-7 hours",
+                certExams: ["Security+", "CySA+"]
+            }
+        ];
+
+        // Resources Data
+        const resources = [
+            {
+                icon: "🎮",
+                title: "TryHackMe - SOC Path",
+                desc: "Interactive labs specifically for SOC training. Start with Junior SOC learning path.",
+                link: "https://tryhackme.com/path/jrsoadmin"
+            },
+            {
+                icon: "📊",
+                title: "Splunk Free Edition",
+                desc: "Industry-leading SIEM tool with free license. 500MB/day limit. Perfect for learning.",
+                link: "https://www.splunk.com/en_us/download.html"
+            },
+            {
+                icon: "🔍",
+                title: "OWASP WebGoat",
+                desc: "Intentionally vulnerable web app to practice application security attacks safely.",
+                link: "https://github.com/WebGoat/WebGoat"
+            },
+            {
+                icon: "🎯",
+                title: "Professor Messer",
+                desc: "Free Security+ study videos. Clear, organized by exam domain.",
+                link: "https://www.professormesser.com/security-plus/"
+            },
+            {
+                icon: "🛡️",
+                title: "CISA Alerts",
+                desc: "Real-time cybersecurity threats and vulnerabilities from US government.",
+                link: "https://www.cisa.gov/alerts"
+            },
+            {
+                icon: "⚔️",
+                title: "HackTheBox",
+                desc: "CTF challenges and labs for hands-on security practice.",
+                link: "https://www.hackthebox.eu"
+            },
+            {
+                icon: "📡",
+                title: "Wireshark",
+                desc: "Free packet analyzer to understand network traffic and protocols.",
+                link: "https://www.wireshark.org"
+            },
+            {
+                icon: "🔐",
+                title: "Burp Suite Community",
+                desc: "Free web vulnerability scanner - industry standard tool.",
+                link: "https://portswigger.net/burp/community"
+            },
+            {
+                icon: "🏠",
+                title: "DetectionLab",
+                desc: "Pre-built vulnerable lab with SIEM, endpoints, and domain controller.",
+                link: "https://www.detectionlab.network"
+            }
+        ];
+
+        // Timeline Data
+        const timeline = [
+            {
+                phase: "Month 1-2: Foundation",
+                goal: "Complete Modules 1-2",
+                tasks: [
+                    "Study fundamentals and IAM",
+                    "Start TryHackMe Junior SOC path",
+                    "Install Splunk Free",
+                    "Create basic home lab with VirtualBox"
+                ]
+            },
+            {
+                phase: "Month 3-4: Network & Operations",
+                goal: "Complete Modules 3-4",
+                tasks: [
+                    "Deep dive into networking",
+                    "Focus on Security Operations (your target!)",
+                    "Continue TryHackMe labs",
+                    "Practice SIEM analysis with Splunk"
+                ]
+            },
+            {
+                phase: "Month 5-6: Application & Infrastructure",
+                goal: "Complete Modules 5-6 + Start Security+ Prep",
+                tasks: [
+                    "Learn AppSec and OWASP Top 10",
+                    "Study infrastructure security",
+                    "Register for Security+ exam",
+                    "Review all modules for exam"
+                ]
+            },
+            {
+                phase: "Month 7: Security+ Exam",
+                goal: "Pass CompTIA Security+",
+                tasks: [
+                    "Take Security+ practice exams",
+                    "Review weak areas",
+                    "Test day preparation",
+                    "PASS EXAM! 🎉"
+                ]
+            },
+            {
+                phase: "Month 8-9: Data & AI Security",
+                goal: "Complete Modules 7-8",
+                tasks: [
+                    "Learn data security and privacy",
+                    "Understand AI security challenges",
+                    "Start CySA+ preparation",
+                    "Continue TryHackMe advanced labs"
+                ]
+            },
+            {
+                phase: "Month 10-12: CySA+ & Job Search",
+                goal: "Earn CySA+ + Secure SOC Analyst Role",
+                tasks: [
+                    "CySA+ focused studying",
+                    "Advanced SIEM labs and practice",
+                    "Build portfolio of detection rules",
+                    "Apply for Junior SOC Analyst positions"
+                ]
+            }
+        ];
+
+        // Initialize Dashboard
+        function initializeDashboard() {
+            renderModules();
+            renderResources();
+            renderTimeline();
+            setupModals();
+        }
+
+        function renderModules() {
+            const grid = document.getElementById('modulesGrid');
+            grid.innerHTML = modules.map((mod, idx) => `
+                <div class="module-card" onclick="openModuleModal(${idx})">
+                    <div class="module-icon">${mod.icon}</div>
+                    <span class="module-number">Module ${mod.number}</span>
+                    <div class="module-title">${mod.name}</div>
+                    <div class="module-lessons">${mod.lessons} lessons • ${mod.time}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">0% Complete</div>
+                </div>
+            `).join('');
+        }
+
+        function renderResources() {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = resources.map(res => `
+                <a href="${res.link}" target="_blank" class="resource-card" style="text-decoration: none; color: inherit;">
+                    <div class="resource-icon">${res.icon}</div>
+                    <div class="resource-title">${res.title}</div>
+                    <div class="resource-desc">${res.desc}</div>
+                </a>
+            `).join('');
+        }
+
+        function renderTimeline() {
+            const content = document.getElementById('timelineContent');
+            content.innerHTML = timeline.map((item, idx) => `
+                <div class="timeline-item">
+                    <div class="timeline-marker">${idx + 1}</div>
+                    <div class="timeline-content">
+                        <h3>${item.phase}</h3>
+                        <p><strong>Goal:</strong> ${item.goal}</p>
+                        <ul style="margin-left: 20px; margin-top: 8px; color: #666;">
+                            ${item.tasks.map(task => `<li>${task}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModuleModal(idx) {
+            const mod = modules[idx];
+            const modal = document.getElementById('moduleModal');
+            const content = document.getElementById('moduleDetailsContent');
+
+            content.innerHTML = `
+                <div class="module-details">
+                    <h2>${mod.icon} ${mod.name}</h2>
+                    <p><strong>Lessons:</strong> ${mod.lessons} | <strong>Time:</strong> ${mod.time}</p>
+                    <p><strong>Certification Exams:</strong> ${mod.certExams.join(', ')}</p>
+
+                    <h3 style="color: #667eea; margin-top: 20px; margin-bottom: 10px;">Key Concepts:</h3>
+                    <ul>
+                        ${mod.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+
+                    <div class="checkbox-list" style="margin-top: 20px;">
+                        <h3 style="color: #667eea; margin-bottom: 10px;">Progress Tracker:</h3>
+                        ${Array.from({length: mod.lessons}, (_, i) => `
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lesson${idx}-${i}" onchange="saveProgress()">
+                                <label for="lesson${idx}-${i}">Lesson ${i + 1}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <a href="PROGRESS.md" target="_blank" class="button" style="display: inline-block; margin-right: 10px;">
+                            📋 Full Progress Tracker
+                        </a>
+                        <a href="RESOURCES.md" target="_blank" class="button">
+                            📚 Study Resources
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function setupModals() {
+            const modal = document.getElementById('moduleModal');
+            const closeBtn = document.querySelector('.close');
+
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
+
+        function saveProgress() {
+            // Save to localStorage
+            const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
+            const progress = {};
+            checkboxes.forEach((cb, idx) => {
+                progress[idx] = cb.checked;
+            });
+            localStorage.setItem('studyProgress', JSON.stringify(progress));
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>
