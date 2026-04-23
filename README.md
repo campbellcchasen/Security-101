@@ -19,6 +19,81 @@
 #### Join Our Community 
 [![Microsoft Foundry Discord](https://dcbadge.limes.pink/api/server/nTYy5BXMWG)](https://discord.gg/nTYy5BXMWG)
 
+---
+
+# 🛡️ My Personal Cybersecurity Learning Journey
+
+This is my personal fork of Microsoft's Security-101 repository. I'm using it as a comprehensive study guide as I transition from IT Help Desk to a **SOC (Security Operations Center) Analyst** role.
+
+## About This Learning Journey 📖
+
+I've forked Microsoft's excellent Security-101 curriculum and enhanced it with personalized study materials to help me:
+- Build a strong foundation in cybersecurity fundamentals
+- Prepare for CompTIA Security+ and CySA+ certifications
+- Develop practical skills for a SOC analyst role
+- Track my progress through structured learning paths
+
+### What I've Added to This Fork
+
+1. **[PROGRESS.md](./PROGRESS.md)** - My personal study tracker
+   - Detailed checklists for all 8 modules
+   - Key concepts I need to master
+   - Space for my personal notes and insights
+   - Estimated study time per module
+   - Practice activities aligned with real-world SOC work
+
+2. **[ROADMAP.md](./ROADMAP.md)** - Certification & Career Roadmap
+   - Detailed mapping of lessons to certifications (Security+, CySA+, CISSP)
+   - Study timeline recommendations
+   - Career progression from IT Help Desk → Junior SOC → Senior SOC Analyst
+   - Exam preparation strategies
+
+3. **[RESOURCES.md](./RESOURCES.md)** - Free Learning Resources
+   - Curated list of FREE high-quality study materials
+   - Free SIEM tools (Splunk, ELK, Wazuh)
+   - Free lab environments and practice platforms
+   - TryHackMe learning paths (especially SOC-focused)
+   - Threat intelligence feeds and tools
+   - Home lab setup guides
+
+### My Study Goals 🎯
+
+**Near-term (6 months)**
+- Complete all 8 Security-101 modules
+- Earn CompTIA Security+ certification
+- Build home lab with SIEM and log sources
+- Start first SOC role
+
+**Medium-term (12 months)**
+- Earn CompTIA CySA+ certification
+- Develop hands-on threat detection skills
+- Contribute to threat intelligence community
+- Become junior SOC analyst
+
+**Long-term (2-5 years)**
+- Earn advanced certifications (GIAC, AWS Security, etc.)
+- Specialize in threat hunting or incident response
+- Progress to senior SOC analyst or SOC lead
+
+### How I'm Using This Repository 📚
+
+Each module in this fork includes:
+- Original Microsoft lesson content (the foundation)
+- Key concepts extracted for my focus areas
+- Practice activities aligned with SOC analyst work
+- Certification exam mappings
+- Free resource recommendations
+- Space for my own notes and reflections
+
+### My Current Progress 📊
+
+- **Modules Completed**: [Update as I progress]
+- **Study Hours Invested**: [Track here]
+- **Next Milestone**: Complete Module 1 and Security+ study plan
+- **Target Cert Exam Date**: [Plan after Module 4]
+
+---
+
 # 🚀 Cybersecurity for Beginners – a curriculum
 
 In this rapidly changing age of AI technology adoption, it is even more critical to understand how to secure IT systems. This course is designed to teach you fundamental cyber security concepts to kick-start your security learning. It is vendor agnostic and is divided into small lessons that should take around 30-60 mins to complete. Each lesson has a small quiz and links to further reading if you want to dive into the topic a bit more.
